@@ -1,0 +1,70 @@
+<% layout('./shells/master') -%>
+<div class="client-options-page">
+  <h1>Client Options</h1>
+  <div class="option-group centered">
+    <a class="btn btn-xlarge btn-primary" href="/">&larr; Back to Connect</a>
+  </div>
+  <div class="option-group left-seam">
+    <div class="well">
+			<div class="option-row" id="commands-option">
+				<span class="option-label">Use Command Hints</span>
+				<div class="option-choices pull-right">
+				  <button class="btn enabled-state" data-val="true">Yes</button>
+				  <button class="btn disabled-state" data-val="false">No</button>
+				</div>
+			</div>
+			<div class="option-row" id="scroll-option">
+				<span class="option-label pull-left space-down">Toggle Auto Scroll With</span>
+				<div class="option-choices pull-right">
+				  <button class="btn enabled-state" data-val="dbl" title="Double click in the text output area to temporarily stop new lines from scrolling your view. Double click again to re-enable Auto Scroll.">Double Click</button>
+				  <br>
+				  <button class="btn disabled-state" style="margin-top: 5px" data-val="long" title="Click and hold your hand still for 2 seconds to temporarily stop new lines from scrolling your view. Repeat to re-enable Auto Scroll.">Long Click</button>
+				</div>
+			</div>
+			<div class="option-row" id="outfont-option">
+				<span class="option-label">Output Font</span>
+				<select name="editor-theme-choice">
+					<option value="standard" style="font-family: 'Source Code Pro'" selected="selected">Source Code Pro</option>
+					<option value="lucida" style="font-family: 'Lucida Console'">Lucida Console</option>
+					<option value="courier" style="font-family: 'Courier New'">Courier New</option>
+				</select>
+			</div>
+			<div class="option-row" id="edittheme-option">
+				<span class="option-label">Editor Theme (admin only)</span>
+				<select name="editor-theme-choice">
+					<option value="ambiance">ambiance</option>
+					<option value="chaos">chaos</option>
+					<option value="chrome">chrome</option>
+					<option value="clouds">clouds</option>
+					<option value="clouds_midnight">clouds_midnight</option>
+					<option value="cobalt">cobalt</option>
+					<option value="crimson_editor">crimson_editor</option>
+					<option value="dawn">dawn</option>
+					<option value="dreamweaver">dreamweaver</option>
+					<option value="eclipse">eclipse</option>
+					<option value="github">github</option>
+					<option value="idle_fingers">idle_fingers</option>
+					<option value="kr_theme">kr_theme</option>
+					<option value="merbivore">merbivore</option>
+					<option value="merbivore_soft">merbivore_soft</option>
+					<option value="mono_industrial">mono_industrial</option>
+					<option value="monokai">monokai</option>
+					<option value="pastel_on_dark">pastel_on_dark</option>
+					<option value="solarized_dark">solarized_dark</option>
+					<option value="solarized_light">solarized_light</option>
+					<option value="terminal">terminal</option>
+					<option value="textmate">textmate</option>
+					<option value="tomorrow">tomorrow</option>
+					<option value="tomorrow_night">tomorrow_night</option>
+					<option value="tomorrow_night_blue">tomorrow_night_blue</option>
+					<option value="tomorrow_night_bright">tomorrow_night_bright</option>
+					<option value="tomorrow_night_eighties">tomorrow_night_eighties</option>
+					<option value="twilight" selected="selected">twilight</option>
+					<option value="vibrant_ink">vibrant_ink</option>
+					<option value="xcode">xcode</option>
+				</select>
+			</div>
+    </div>
+  </div>
+</div>
+<script src="/js/client-options.js"></script>

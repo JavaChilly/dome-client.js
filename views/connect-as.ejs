@@ -1,0 +1,35 @@
+<% layout('./shells/master') -%>
+<div class="moo-login-page">
+  <h1>Play Now</h1>
+  <div class="option-group guest-group centered right-seam">
+    <a class="btn btn-xlarge btn-primary" id="connect_guest" href="/player-client/">Connect as a Guest</a>
+  </div>
+  <div class="option-group connect-as-group">
+    <h2 style="color: #eeeeee">Connect As ...</h2>
+    <div class="moo-login-box">
+      <label for="moo-username">CHARACTER NAME</label>
+      <div id="user-picker" class="btn-group hide">
+				<button class="btn">{character name}</button>
+				<button class="btn dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="divider"></li>
+					<li data-command="newChar" class="command">Add Character</li>
+					<li data-command="purgeAll" class="command">Forget All</li>
+				</ul>
+			</div>
+			<input id="moo-username" type="text" name="username">
+      <label for="moo-password">PASSWORD</label>
+      <input id="moo-password" type="password" name="password"><br>
+      <div class="relative-group">
+				<a href="/client-options/" class="btn">Options</a>
+        <input class="btn btn-large btn-primary pull-right" id="connect_as" type="submit" name="connect" value="Connect">
+        <i id="secure-toggle" class="glyph-network"></i>
+      </div>
+    </div>
+  </div>
+  <div class="version"><span>dome-client.js v<%=version%></span>, <span>&copy; The Sindome Group 1997-2013</span></div>
+</div>
+<script src="<%=decache('/js/client-options.js')%>"></script>
+<script src="<%=decache('/js/client-connect.js')%>"></script>
