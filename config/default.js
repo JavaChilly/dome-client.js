@@ -10,7 +10,11 @@ module.exports = {
 
     'socketUrl'    : 'http://localhost:5555',
     'socketUrlSSL' : '',
-    'poweredBy'    : 'dome-client.js'
+    'poweredBy'    : 'dome-client.js',
+    'session'      : {
+        'secret' : 'secret',
+        'key'    : 'express.sid'
+    }
   },
   
 // ssl is optional

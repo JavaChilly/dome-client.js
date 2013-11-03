@@ -75,7 +75,7 @@ app.configure(function () {
 	
   app.use( express.cookieParser() );
   app.use( express.bodyParser() );
-  app.use( express.session( { secret: 'secret', key: 'express.sid' } ) );
+  app.use( express.session( { secret: config.node.session.secret, key: config.node.session.key } ) );
   
   app.use( function( req, res, next ) {
 	  // attach a number of values to the app.locals so they're available when we render a template
