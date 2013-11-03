@@ -12,7 +12,7 @@ var connectFunction = function() {
   }
   if ( cmd ) {
     store.addUser({'username' : u, 'password' : p });
-    //store.put('dc-username', u);
+    store.put('last-username', u);
     //store.put('dc-password', p);
     store.put("dc-user-login", cmd);
   }
@@ -29,9 +29,8 @@ store.getUsernames = function() {
 
 store.getUser = function(username) {
   username = username.toLowerCase();
-  if (pwd = this.get('user-' + username + '-passwd')) {
-    return ({ 'username' : username, 'password' : pwd });
-  }
+  pwd = this.get('user-' + username + '-passwd');
+  return ({ 'username' : username, 'password' : pwd });
 };
 
 store.addUser = function(user) {
@@ -69,10 +68,19 @@ $(document).ready(function(){
   
   var usernames = store.getUsernames();
   
-  var usernamePicker = $('#user-picker');
-  var usernameField = $('#moo-username');
-  var passwordField = $('#moo-password');
-  var secureToggle = $('#secure-toggle');
+  var usernamePicker      = $('#user-picker');
+  var usernamePickerLabel = $('.user-picker-label', usernamePicker);
+  var usernameField       = $('#moo-username');
+  var passwordField       = $('#moo-password');
+  var secureToggle        = $('#secure-toggle');
+  
+  var readyUser = function(u, p) {
+      if (usernamePickerLabel != null) {
+          usernamePickerLabel.text(u);
+      }
+      usernameField.val(u);
+      passwordField.val(p);
+  };
   
   if (usernames.length > 0) {
     // drop-down picker
@@ -83,6 +91,8 @@ $(document).ready(function(){
       var uname = usernames[i];
       divider.before('<li class="username" data-username="' + uname + '">' + uname + '</li>');
     }
+    bestUser = store.getUser(usernames[0]);
+    readyUser(bestUser.username, bestUser.password);
     
     var userOptions = $('UL.dropdown-menu', usernamePicker);
     if (userOptions) {
@@ -92,9 +102,7 @@ $(document).ready(function(){
           // clicked username
           var usernameClicked = clicked.data('username');
           var user = store.getUser(usernameClicked);
-          usernameField.val(user.username);
-          passwordField.val(user.password);
-          usernamePicker.children().first().text(user.username);
+          readyUser(user.username, user.password);
         } else if (clicked.hasClass('command')) {
           var command = clicked.data('command');
           console.log('command was : ' + command);
@@ -105,9 +113,8 @@ $(document).ready(function(){
             }
           } else if (command == "newChar") {
             var newName = window.prompt('What is your character name?');
-            usernameField.val(newName);
-            passwordField.val('');
-            
+            readyUser(newName, '');
+            passwordField.focus();
           }
         }
       });
@@ -146,14 +153,6 @@ $(document).ready(function(){
   // connect as [someone] using [password]
   var connect = $('#connect_as');
   if ( connect && connect.length ) {
-    var storedUsername = store.get('dc-username');
-    if (storedUsername) {
-      usernameField.val(storedUsername);
-    }
-    var storedPassword = store.get('dc-password');
-    if (storedPassword) {
-      passwordField.val(storedPassword);
-    }
     connect.on('click', connectFunction);
   }
   

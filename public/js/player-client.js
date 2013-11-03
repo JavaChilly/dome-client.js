@@ -227,15 +227,15 @@ $(document).ready(function(){
       var cmd;
       if ((cmd = store.get('dc-initial-command'))) {
         // guest login
-        document.title = dome.titleBarText = "Guest | " + poweredBy + " | " + gameName;
+        document.title = dome.titleBarText = "Guest | " + gameName + " | " + poweredBy;
         socket.emit('input', cmd, function(response) {
           store.remove('dc-initial-command');
         });
       } else if ((cmd = store.get('dc-user-login'))) {
         // user login
-        var who = store.get('dc-username');
+        var who = store.get('last-username');
         dome.alert.pattern = new RegExp(who);
-        document.title = dome.titleBarText = who + " | " + poweredBy + " | " + gameName;
+        document.title = dome.titleBarText = who + " | " + gameName + " | " + poweredBy;
         console.log('logging into moo with command ' + cmd);
         socket.emit('input', cmd, function(response) {
           //
