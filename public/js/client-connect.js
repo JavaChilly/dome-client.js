@@ -1,22 +1,38 @@
 
-var connectFunction = function() {
-  var u = $('#moo-username').val();
-  var p = $('#moo-password').val();
-  var cmd = "";
-  if ( u && p ) {
-    // both username and password
-    cmd = "connect " + u + " " + p;
-  } else if ( u ) {
-    // just username
-    cmd = "connect " + u;
+var connectFunction = function(manual) {
+  if (!manual) {
+    var u = $('#moo-username').val();
+    var p = $('#moo-password').val();
+    var cmd = "";
+    if ( u && p ) {
+      // both username and password
+      cmd = "connect " + u + " " + p;
+    } else if ( u ) {
+      // just username
+      cmd = "connect " + u;
+    }
+    if ( cmd ) {
+      store.addUser({'username' : u, 'password' : p });
+      store.put('last-username', u);
+      //store.put('dc-password', p);
+      store.put("dc-user-login", cmd);
+    }
   }
-  if ( cmd ) {
-    store.addUser({'username' : u, 'password' : p });
-    store.put('last-username', u);
-    //store.put('dc-password', p);
-    store.put("dc-user-login", cmd);
+
+  var host = $('#moo-hostname').val();
+  var port = $('#moo-port').val();
+  if (host) {
+    store.put('game-hostname', host);
+  } else {
+    host = 'moo.sindome.org';
   }
-  window.location = "/player-client/?game=sd&" + clientOptions.buildQueryString();
+  if (port) {
+    store.put('game-port', port);
+  } else {
+    port = '5555';
+  }
+
+  window.location = "/player-client/?game=sd&gh=" + host + "&gp=" + port + "&" + clientOptions.buildQueryString();
 };
 
 store.getUsernames = function() {
@@ -54,7 +70,10 @@ store.purge = function() {
 }
 
 $(document).ready(function(){
-  
+
+  var gameHostname = store.get('game-hostname') || 'moo.sindome.org';
+  var gamePort = store.get('game-port') || '5555';
+
   // old school check
   var storedUsername = store.get('dc-username'); // old username format
   var storedPassword = store.get('dc-password'); // old password format
@@ -72,6 +91,8 @@ $(document).ready(function(){
   var usernamePickerLabel = $('.user-picker-label', usernamePicker);
   var usernameField       = $('#moo-username');
   var passwordField       = $('#moo-password');
+  var hostnameField       = $('#moo-hostname');
+  var portField           = $('#moo-port');
   var secureToggle        = $('#secure-toggle');
   
   var readyUser = function(u, p) {
@@ -81,7 +102,14 @@ $(document).ready(function(){
       usernameField.val(u);
       passwordField.val(p);
   };
-  
+
+  if (hostnameField) {
+    hostnameField.val(gameHostname);
+  }
+  if (portField) {
+    portField.val(gamePort);
+  }
+
   if (usernames.length > 0) {
     // drop-down picker
     usernameField.hide();
@@ -145,8 +173,7 @@ $(document).ready(function(){
   var guest = $('#connect_guest');
   if ( guest && guest.length ) {
     guest.on('click', function() {
-      store.put("dc-initial-command", "connect guest");
-      window.location = "/player-client/";
+      connectFunction(true);
     });
   }
   
@@ -160,7 +187,7 @@ $(document).ready(function(){
     if ( event.which == 13 && !event.shiftKey ) {
       if (usernameField.val() && passwordField.val()) {
         // enter key
-        connectFunction();
+        connectFunction(false);
       }
     }
   });

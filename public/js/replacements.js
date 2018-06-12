@@ -5,6 +5,8 @@ var subs = [
   { 'type' : 'ansi', 'pattern' : /\r\n/g,     'replacement' : "\n" },
   { 'type' : 'ansi', 'pattern' : /\</g,       'replacement' : '&lt;' },
   { 'type' : 'ansi', 'pattern' : /\>/g,       'replacement' : '&gt;' },
+  { 'type' : 'ansi', 'pattern' : /\[1\;30m/g, 'replacement' : '<span class="ansi-brblack">' },
+  { 'type' : 'ansi', 'pattern' : /\[0\;30m/g, 'replacement' : '<span class="ansi-black">' },
   { 'type' : 'ansi', 'pattern' : /\[1\;31m/g, 'replacement' : '<span class="ansi-brred">' },
   { 'type' : 'ansi', 'pattern' : /\[0\;31m/g, 'replacement' : '<span class="ansi-red">' },
   { 'type' : 'ansi', 'pattern' : /\[1\;32m/g, 'replacement' : '<span class="ansi-brgreen">' },
