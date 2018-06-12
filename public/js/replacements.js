@@ -29,5 +29,14 @@ var subs = [
   { 'type' : 'ansi', 'pattern' : /\[44m/g,     'replacement' : '<span class="ansi-bgblue">' },
   { 'type' : 'ansi', 'pattern' : /\[45m/g,     'replacement' : '<span class="ansi-bgmagenta">' },
   { 'type' : 'ansi', 'pattern' : /\[46m/g,     'replacement' : '<span class="ansi-bgcyan">' },
-  { 'type' : 'ansi', 'pattern' : /\[47m/g,     'replacement' : '<span class="ansi-bgwhite">' }
+  { 'type' : 'ansi', 'pattern' : /\[47m/g,     'replacement' : '<span class="ansi-bgwhite">' },
+  { 'type' : 'ansi', 'pattern' : /\[00m/g,     'replacement' : '</span></span></span></span>' },
+  { 'type' : 'ansi', 'pattern' : /\[01m/g,     'replacement' : '<span class="ansi-underline">' },
+  { 'type' : 'ansi', 'pattern' : /\[31m/g, 'replacement' : '<span class="ansi-red">' },
+  { 'type' : 'ansi', 'pattern' : /\[32m/g, 'replacement' : '<span class="ansi-green">' },
+  { 'type' : 'ansi', 'pattern' : /\[33m/g, 'replacement' : '<span class="ansi-yellow">' },
+  { 'type' : 'ansi', 'pattern' : /\[34m/g, 'replacement' : '<span class="ansi-blue">' },
+  { 'type' : 'ansi', 'pattern' : /\[35m/g, 'replacement' : '<span class="ansi-magenta">' },
+  { 'type' : 'ansi', 'pattern' : /\[36m/g, 'replacement' : '<span class="ansi-cyan">' },
+  { 'type' : 'ansi', 'pattern' : /\[37m/g, 'replacement' : '<span class="ansi-bright">' },
 ];

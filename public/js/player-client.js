@@ -17,6 +17,8 @@ $(document).ready(function(){
   var dome = {
     socket          : null,
     titleBarText    : null,
+    gameHostname    : 'moo.sindome.org',
+    gamePort        : 5555,
     client          : $('#browser-client'),
     buffer          : $('#lineBuffer'),
     statusDisplay   : $('#status'),
@@ -74,6 +76,26 @@ $(document).ready(function(){
   
     if (options.indexOf('as=long') != -1) {
       preferences.autoScroll = 'long';
+    }
+
+    if ((ghIndex = options.indexOf('gh=')) != -1) {
+      var rest = gh = options.substr(ghIndex);
+      if ((n = rest.indexOf("&")) != -1) {
+        gh = rest.substr(0, n);
+      }
+      if (gh.length > 3) {
+        dome.gameHostname = gh.substr(3);
+      }
+    }
+
+    if ((gpIndex = options.indexOf('gp=')) != -1) {
+      var rest = gp = options.substr(gpIndex);
+      if ((n = rest.indexOf("&")) != -1) {
+        gp = rest.substr(0, n);
+      }
+      if (gp.length > 3) {
+        dome.gamePort = gp.substr(3);
+      }
     }
   
     if ((ofIndex = options.indexOf('of=')) != -1) {
@@ -271,6 +293,7 @@ $(document).ready(function(){
   
   var onLoadHandler = function() {
     socket = dome.socket = io.connect(('https:' == document.location.protocol ? socketUrlSSL : socketUrl), {
+      'query' : 'host=' + dome.gameHostname + '&port=' + dome.gamePort,
       'sync disconnect on unload' : true // send 'disconnect' event when the page is left
     });
     

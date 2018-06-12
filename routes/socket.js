@@ -6,9 +6,21 @@ exports = module.exports;
 
 // browser connecting via websocket
 exports.connection = function ( socket ) {
+
+  console.log( socket.handshake.query );
+
+  var gameHost = config.moo.host;
+  var gamePort = config.moo.port;
+  if (socket.handshake['query'] && socket.handshake.query['host']) {
+    gameHost = socket.handshake.query.host;
+  }
+  if (socket.handshake['query'] && socket.handshake.query['port']) {
+    gamePort = socket.handshake.query.port;
+  }
+
   // open a network connection to the moo
   socket.set( 'is-active', true );
-  var moo = net.connect( { 'port' : config.moo.port, 'host' : config.moo.host }, function(err) {
+  var moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
     // tell the other end of the connection that it connected successfully
     console.log(err);
     socket.set( 'is-active', true );

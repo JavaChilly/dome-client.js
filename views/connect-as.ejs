@@ -2,7 +2,14 @@
 <div class="moo-login-page">
   <h1>Play Now</h1>
   <div class="option-group guest-group centered right-seam">
-    <a class="btn btn-xlarge btn-primary" id="connect_guest" href="/player-client/">Connect as a Guest</a>
+    <div class="host-info">
+      <a class="btn btn-xlarge btn-primary" id="connect_guest" href="/player-client/">Connect Manually</a>
+      <br>&nbsp;<br>
+      <label for="moo-hostname">HOSTNAME</label>
+      <input id="moo-hostname" type="text" name="hostname" value="moo.sindome.org" /><br>
+      <label for="moo-port">PORT</label>
+      <input id="moo-port" type="text" name="port" value="5555" />
+    </div>
   </div>
   <div class="option-group connect-as-group">
     <h2 style="color: #eeeeee">Connect As ...</h2>
@@ -29,7 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="version"><span>dome-client.js v<%=version%></span>, <span>&copy; The Sindome Group 1997-2013</span></div>
+  <div class="version"><span>dome-client.js v<%=version%>p</span>, <span>&copy; The Sindome Corporation 1997-2018</span></div>
 </div>
 <script src="<%=decache('/js/client-options.js')%>"></script>
 <script src="<%=decache('/js/client-connect.js')%>"></script>

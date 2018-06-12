@@ -167,3 +167,9 @@ app.post( '/save/:filename', function( req, res, next ) {
   res.write('</div></div></body></html>');
   res.end();
 });
+
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    console.log(err);
+    
+});
