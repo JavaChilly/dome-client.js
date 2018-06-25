@@ -23,7 +23,7 @@ var httpMgr = io.listen( server, function() {
   logger.info("socket.io listening to http");
 } );
 
-/*
+
 if ( config.ssl ) {
   var sslOptions = {
     key  : fs.readFileSync(config.ssl.key),
@@ -39,7 +39,7 @@ if ( config.ssl ) {
     logger.info("socket.io listening to https");
   } );
 }
-*/
+
 
 app.configure(function () {
   // use ejs-locals for all ejs templates:
