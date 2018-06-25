@@ -89,7 +89,8 @@ app.configure(function () {
 	    decache      : function(url) { return "" + url + "?" + app.get('cachingHash'); },
 	    version      : app.get( 'version' ),
 	    poweredBy    : config.node.poweredBy,
-	    gameName     : config.moo.name
+	    gameName     : config.moo.name,
+      connected    : routes.socket.connected
 		});
 		next();
 	});

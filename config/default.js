@@ -38,7 +38,7 @@ module.exports = {
   },
   'version' : {
     'major' : '1',
-    'minor' : '0'
+    'minor' : '2'
     // build is pulled from git hash
   }
 };

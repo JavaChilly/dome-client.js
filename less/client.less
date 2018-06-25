@@ -294,6 +294,30 @@ BODY.ide-window {
     font-family: 'Source Code Pro';
     color: darken(@domeOrange, 10%);
   }
+  .connection-stats {
+    display: inline-block;
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    background-color: RGBA(0, 0, 0, 0.5);
+    border: 2px solid black;
+    .border-radius(8px);
+    padding: 15px 20px;
+    white-space: nowrap;
+    font-family: 'Source Code Pro';
+    color: darken(@domeOrange, 10%);
+    max-height: 60%;
+    overflow-x: scroll;
+    overflow-y: visible;
+    TABLE {
+      TR.table-header {
+        font-weight: bold;
+      }
+      TD.count-column {
+        padding: 5px;
+      }
+    }
+  }
   H1 {
     margin-left: 50px;
     text-shadow: 1px 1px 0 #000;
@@ -305,6 +329,33 @@ BODY.ide-window {
     padding: 15px 20px;
     width: 345px;
   }
+
+  .tabbed-panel {
+    width: 350px;
+    margin: 20px auto;
+    background-color: RGBA(0, 0, 0, 0.5);
+    border: 2px solid black;
+    .border-radius(8px);
+    .tab-panel {
+      overflow: overlay;
+      padding: 0 20px 20px 20px;
+      &.hidden-panel {
+        display: none;
+      }
+
+      .relative-group {
+        display: inline-block;
+        width: 100%;
+        clear: both;
+        margin-top: 5px;
+
+        .btn-primary, .btn-success {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
   .option-group {
     padding-left: 20px;
     float: left;
@@ -315,14 +366,6 @@ BODY.ide-window {
       padding-top: 75px;
       H2 {
         text-shadow: 1px 1px 0 #000;
-      }
-    }
-    &.guest-group {
-      .host-info {
-        display: inline-block;
-        width: max-content;
-        margin-top: 30px;
-        text-align: left;
       }
     }
     

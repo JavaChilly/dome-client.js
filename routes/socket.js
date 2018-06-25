@@ -1,13 +1,36 @@
 var net  = require( 'net' ),
+      _  = require( 'underscore' ),
  config  = require( '../lib/config' ),
  logger  = require( '../lib/logger' );
 
+var connected = {
+  count: 0,
+  games: {}
+};
+
+var whenConnected = function(address) {
+  connected.count++;
+  var key = address.host + ':' + address.port;
+  key = key.toLowerCase();
+  if (connected.games[key]) {
+    connected.games[key]++;
+  } else {
+    connected.games[key] = 1;
+  }
+};
 exports = module.exports;
+
+exports.connected = function() {
+  return {
+    count: connected.count,
+    games: _.sortBy( _.map( connected.games, function ( count, game ) { return { address: game, count: count }; } ), 'count' ).reverse()
+  };
+};
 
 // browser connecting via websocket
 exports.connection = function ( socket ) {
 
-  console.log( socket.handshake.query );
+  //console.log( socket.handshake.query );
 
   var gameHost = config.moo.host;
   var gamePort = config.moo.port;
@@ -20,17 +43,29 @@ exports.connection = function ( socket ) {
 
   // open a network connection to the moo
   socket.set( 'is-active', true );
+  socket.set( 'game-address', { host: gameHost, port: gamePort } );
+
   var moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
     // tell the other end of the connection that it connected successfully
-    console.log(err);
-    socket.set( 'is-active', true );
-    socket.emit( 'connected', ( new Date() ).toString() );
+    if (err) {
+      logger.error( err );
+      socket.set( 'is-active', false );
+    } else {
+      socket.get( 'game-address', function( err, address ) {
+        whenConnected(address);
+        socket.set( 'is-active', true );
+        socket.emit( 'connected', ( new Date() ).toString() );
+      });
+    }
   });
   
-  moo.on( 'connect', function( data ) {
-    socket.set( 'is-active', true );
-    socket.emit( 'connected', ( new Date() ).toString() );
-  });
+  /*moo.on( 'connect', function( data ) {
+    socket.get( 'game-address', function( err, address ) {
+      whenConnected(address);
+      socket.set( 'is-active', true );
+      socket.emit( 'connected', ( new Date() ).toString() );
+    });
+  });*/
   
   // ** when receiving data from the moo
   moo.on( 'data', function( data ) {
@@ -68,11 +103,11 @@ exports.connection = function ( socket ) {
   moo.on( 'error', function(e) {
     logger.error( 'moo error event occurred' );
     logger.error( e );
-    socket.get( 'is-active', function( err, active ) {
-      if ( active ) {
-        socket.emit( 'error', e );
-      }
-    });
+      socket.get( 'is-active', function( err, active ) {
+        if ( active ) {
+          socket.emit( 'error', e );
+        }
+      });
   });
   
   socket.on( 'error', function(e) {

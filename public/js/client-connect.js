@@ -170,10 +170,29 @@ $(document).ready(function(){
     });
   }    
   
-  var guest = $('#connect_guest');
-  if ( guest && guest.length ) {
-    guest.on('click', function() {
+  var connect_now = $('#connect_now');
+  if ( connect_now && connect_now.length ) {
+    connect_now.on('click', function() {
       connectFunction(true);
+    });
+  }
+
+  var contact_panel = $('#contact_panel');
+  var address_panel = $('#address_panel');
+
+  var next_btn = $('#next_btn');
+  if (next_btn && next_btn.length ) {
+    next_btn.on('click', function () {
+      contact_panel.removeClass('hidden-panel');
+      address_panel.addClass('hidden-panel');
+    });
+  }
+
+  var back_btn = $('#back_btn');
+  if (back_btn && back_btn.length ) {
+    back_btn.on('click', function () {
+      address_panel.removeClass('hidden-panel');
+      contact_panel.addClass('hidden-panel');
     });
   }
   
