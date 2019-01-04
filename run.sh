@@ -2,7 +2,7 @@
 
 if [ -z "$NODE_ENV" ]
 then
-  NODE_ENV="sdserver"
+  NODE_ENV="default"
   export $NODE_ENV
 fi
 
