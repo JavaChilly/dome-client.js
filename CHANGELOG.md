@@ -3,6 +3,10 @@
 ## 01/06/19
 
 * Added xterm256 color support!
+* Updated Readme
+* Added Changelog
+* Removed Sindome specific commands from player.txt
+* Moved features into readme
 
 ## 01/05/19
 
