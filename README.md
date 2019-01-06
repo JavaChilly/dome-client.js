@@ -32,7 +32,7 @@ Every time you disconnect from the game, you're giving an option to save your ex
 
 ### Staff Tested
 
-Our Webclient isn't just built for players. We manage our game [Sindome](https://www.sindome.org_ using the Webclient every day. One of the most powerful features for the staff is the Webclient's popup editor that lets us edit object properties and commands. This makes it much easier for us to draft notes on your roleplaying, review your history, write new features and understand whats going on in the inner workings of the game.
+Our Webclient isn't just built for players. We manage our game [Sindome](https://www.sindome.org) using the Webclient every day. One of the most powerful features for the staff is the Webclient's popup editor that lets us edit object properties and commands. This makes it much easier for us to draft notes on your roleplaying, review your history, write new features and understand whats going on in the inner workings of the game.
 
 ### Other Features:
 
