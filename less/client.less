@@ -1,7 +1,9 @@
 /* only need bootstrap's less mixins right now - save some css bloat */
 @import "bootstrap/mixins.less";
 
-@domeOrange:						#f89406; 
+@import "xterm256.less";
+
+@domeOrange:						#f89406;
 
 .ansi-bgred {
   background-color: #900;
@@ -33,6 +35,10 @@
 
 .ansi-underline {
   text-decoration: underline;
+}
+
+.ansi-bggreen {
+  background-color: #090;
 }
 
 BODY {
