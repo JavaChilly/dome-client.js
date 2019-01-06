@@ -12,6 +12,38 @@ You can see a version of this running that will connect to whatever game you wan
 
 You are free to use that public client as much as you want! In fact, it's the default client for connecting to games on http://www.mudverse.com/
 
+## Features
+
+### No Software Required For Your Players
+
+Works on a Mac, works on a PC. Use our Webclient without relying on Flash plugins or Java applets, those things are buggy and expose you to security risks. HTML 5 is available in all modern browsers, we already have all the technology we need. And since there isn't anything you need to install, you can log on from your office even if you can't install new software.
+
+### Command Hints & Autocomplete for Players
+
+Type a few characters and a Command Hints overlay will popup. Forgetting a command doesn't have to be so frustrating for experienced players and new players can find commands much easier than ever.
+
+### Command History for Players
+
+Some telnet clients remember your commands as you play. Unfortunately, as soon as you close the program, all that history is gone. This Webclient remembers the last 2000 commands you've entered. Browser crash? Power failure? No problem, we use HTML 5's local storage API and (once again) your modern web browser to keep those commands as long as you want us to.
+
+### Lucid Logging. Full Color.
+
+Every time you disconnect from the game, you're giving an option to save your experience as an HTML-based log file. This keeps the full context of what you said and what you witnessed. Every color we support is preserved exactly as it was.
+
+### Staff Tested
+
+Our Webclient isn't just built for players. We manage our game [Sindome](https://www.sindome.org) using the Webclient every day. One of the most powerful features for the staff is the Webclient's popup editor that lets us edit object properties and commands. This makes it much easier for us to draft notes on your roleplaying, review your history, write new features and understand whats going on in the inner workings of the game.
+
+### Other Features:
+
+* Works on iPad / iPhone /Android well enough to check in when you're away from your computer
+* Utilizes Socket.io for Websockets
+* Full xterm256 color support
+* Standard ANSI color support
+* VMOO / Modal Style editor for code/properties/whatever
+* Logging support - Download a Log of your session!
+* Scroll Pausing/Resuming (double click the screen or hit the pause/resume scroll button)
+
 ## Installation
 
 1. Clone the repo & run `npm install` to fetch the required node modules.
@@ -24,6 +56,22 @@ You are free to use that public client as much as you want! In fact, it's the de
     * **ip** - optional support if you have more than one ip
   * The MOO section controls where the client will connect. (this isn't designed to connect to a bunch of different games yet)
 4. Start the server in debug mode: `./debug.sh` 
+
+## Local Modal Editing
+This feature allows you to edit files locally in a modal window. The window has MOO Syntax highlighting and uses the [Ace editor](https://ace.c9.io/) which is excellent and can be extended pretty easily if you want to add things like VIM support or custom macros. The syntax for doing local modal editing is something like this:
+```
+@edit obj:verb
+```
+Or, for a property:
+```
+@edit obj.prop
+```
+
+If you would like to be able to edit code from the webclient in a modal window, you will need to modify your MOO to support this. The code / instructions for adding Local Editing can be found here: https://github.com/SevenEcks/lambda-moo-programming/blob/master/code/LocalEditing.md
+
+### Command Hints Customization
+
+The code comes bundled with a set of command hints that are common to many MOO's, but every game is different. If you want to customize the command hints it's easy. Just edit config/ac/player.txt and add/remove whatever command hints you want. When a player starts typing a command, the web client will pop up an overlay that shows possible commands, and lets them use up/down arrows + enter to autocomplete!
 
 ## SSL
 SSL is supported, uncomment the config section, change the key,cert,ca according to your ssl key files.
