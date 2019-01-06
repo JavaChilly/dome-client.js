@@ -26,8 +26,8 @@ var subs = [
   { 'type' : 'ansi', 'pattern' : /\[0\;37m/g, 'replacement' : '<span class="ansi-bright">' },
   { 'type' : 'ansi', 'pattern' : /\[4m/g,     'replacement' : '<span class="ansi-underline">' },
   { 'type' : 'ansi', 'pattern' : /\[1m/g,     'replacement' : '<span class="ansi-bright">' },
-  { 'type' : 'ansi', 'pattern' : /\[0m/g,     'replacement' : '</span>' },
-  { 'type' : 'ansi', 'pattern' : /\[40m/g,     'replacement' : '</span>' },
+  { 'type' : 'ansi', 'pattern' : /\[0m/g,     'replacement' : '</span></span>' },
+  { 'type' : 'ansi', 'pattern' : /\[40m/g,     'replacement' : '</span></span>' },
   { 'type' : 'ansi', 'pattern' : /\[41m/g,     'replacement' : '<span class="ansi-bgred">' },
   { 'type' : 'ansi', 'pattern' : /\[42m/g,     'replacement' : '<span class="ansi-bggreen">' },
   { 'type' : 'ansi', 'pattern' : /\[43m/g,     'replacement' : '<span class="ansi-bgyellow">' },
@@ -46,5 +46,8 @@ var subs = [
   { 'type' : 'ansi', 'pattern' : /\[37m/g, 'replacement' : '<span class="ansi-bright">' },
   { 'type' : 'ansi', 'pattern' : /\[38;5;(\d+)m/g, 'replacement' : function( m, p1 ) {
     return '<span class="xterm256-' + xterm256_colors[ p1 ] + '">';
-    }}
+  }},
+  { 'type' : 'ansi', 'pattern' : /\[48;5;(\d+)m/g, 'replacement' : function( m, p1 ) {
+    return '<span class="xterm256-bg-' + xterm256_colors[ p1 ] + '">';
+  }}
 ];
