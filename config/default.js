@@ -30,8 +30,8 @@ module.exports = {
 
   // where it connects to
   'moo' : {
-    'name' : 'Boa',
-    'host' : 'boa.sindome.org',
+    'name' : 'Sindome',
+    'host' : 'moo.sindome.org',
     'port' : 5555
   },
 
