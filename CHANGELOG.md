@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+## 01/17/19
+
+* Added ability to toggle the connect to any server / connect to a specific game option in config
+* Updated ejs views
+* Updated some css
+* Updated readme
+
 ## 01/06/19
 
 * Added xterm256 color support!

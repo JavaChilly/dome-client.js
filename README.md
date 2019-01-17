@@ -14,6 +14,10 @@ You are free to use that public client as much as you want! In fact, it's the de
 
 ## Features
 
+### Run a public client that connects to any game OR a private client that connects only to yours
+
+It's really straight forward, just set the connectAnywhere option to true or false in the configuration! You can let your dome-client connect to any game, or you can lock it in to your own.
+
 ### No Software Required For Your Players
 
 Works on a Mac, works on a PC. Use our Webclient without relying on Flash plugins or Java applets, those things are buggy and expose you to security risks. HTML 5 is available in all modern browsers, we already have all the technology we need. And since there isn't anything you need to install, you can log on from your office even if you can't install new software.
@@ -36,6 +40,9 @@ Our Webclient isn't just built for players. We manage our game [Sindome](https:/
 
 ### Other Features:
 
+* Connect to any MUD game that supports telnet/terminal connections
+* Public / Private configuration, you can set the client to allow connections to any games (specified by user) or
+* Lock your dome-client to a specific game
 * Works on iPad / iPhone /Android well enough to check in when you're away from your computer
 * Utilizes Socket.io for Websockets
 * Full xterm256 color support
@@ -56,6 +63,13 @@ Our Webclient isn't just built for players. We manage our game [Sindome](https:/
     * **ip** - optional support if you have more than one ip
   * The MOO section controls where the client will connect. (this isn't designed to connect to a bunch of different games yet)
 4. Start the server in debug mode: `./debug.sh` 
+
+## Public / Private Dome Client
+If you want your dome client to connect to ONLY your game, you should open default.js and edit the 'connectAnywhere' line to be:
+```
+'connectAnywhere': false,
+```
+If you're fine with users connecting with your dome-client to anywhere, just leave that option as it is.
 
 ## Local Modal Editing
 This feature allows you to edit files locally in a modal window. The window has MOO Syntax highlighting and uses the [Ace editor](https://ace.c9.io/) which is excellent and can be extended pretty easily if you want to add things like VIM support or custom macros. The syntax for doing local modal editing is something like this:

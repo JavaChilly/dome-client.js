@@ -6,10 +6,13 @@ var exports = module.exports;
 exports.connect = function( req, res ) {
   try {
     res.render( 'connect-as', { 
+      'connectAnywhere': config.node.connectAnywhere, 
+      'mooHostname': config.moo.host,
+      'mooPort': config.moo.port,
       'meta' : {
-       'title' : 'Connect - MOO Client',
-       'description' : 'Connect to our game using its state of the art web-based MOO Client. No flash, no plugins, just a modern browser. Play with your iPad or check in from the company computer. There\'s nothing to install.',
-       'keywords' : 'moo-client, dome-client.js, telnet client, modern gaming client, text-based game, websocket-telnet'
+       'title' : 'Connect - Mud/Moo Client',
+       'description' : 'Connect to our game using its state of the art web-based game Client. No flash, no plugins, just a modern browser. Play with your iPad or check in from the company computer. There\'s nothing to install.',
+       'keywords' : 'moo-client, dome-client.js, mud client, telnet client, modern gaming client, text-based game, websocket-telnet'
       }
     });
   } catch( e ) {
@@ -21,9 +24,9 @@ exports.connect = function( req, res ) {
 exports.options = function( req, res ) {
   res.render( 'client-options', {
     'meta' : {
-      'title' : 'Options - MOO Client',
-      'description': 'Configure your preferred options when using our state of the art MOO Client.',
-      'keywords': 'moo-client, dome-client.js, client options, configure preferences, command hints'
+      'title' : 'Options - Mud Game Client',
+      'description': 'Configure your preferred options when using our state of the art Game Client.',
+      'keywords': 'moo-client, mud-client,  dome-client.js, client options, configure preferences, command hints'
     }
   });
 };
@@ -31,8 +34,8 @@ exports.options = function( req, res ) {
 exports.client = function( req, res ) {
   res.render( 'client', {
     'meta' : {
-      'title' : '' + config.node.poweredBy + '\'s MOO Client',
-      'description' : 'Someone playing ' + config.node.poweredBy + ' via its web-based MOO Client',
+      'title' : '' + config.node.poweredBy + '\'s Game Client',
+      'description' : 'Someone playing ' + config.node.poweredBy + ' via its web-based game Client',
       'keywords' : 'moo-client, dome-client.js, telnet client, modern gaming client, text-based game, websocket-telnet'
     }
   });

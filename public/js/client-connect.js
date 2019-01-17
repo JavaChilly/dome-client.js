@@ -71,8 +71,8 @@ store.purge = function() {
 
 $(document).ready(function(){
 
-  var gameHostname = store.get('game-hostname') || 'moo.sindome.org';
-  var gamePort = store.get('game-port') || '5555';
+  var gameHostname = store.get('game-hostname') || $('#moo-hostname').val();;
+  var gamePort = store.get('game-port') || $('#moo-port').val();
 
   // old school check
   var storedUsername = store.get('dc-username'); // old username format

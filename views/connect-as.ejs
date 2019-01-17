@@ -2,13 +2,14 @@
 <div class="moo-login-page">
   <h1>Play Now</h1>
   <div class="tabbed-panel">
+    <%if (connectAnywhere) { %>
     <div id="address_panel" class="tab-panel">
       <h2 style="color: #eeeeee">Connect To ...</h2>
       <div class="field-group">
         <label for="moo-hostname">HOSTNAME</label>
-        <input id="moo-hostname" type="text" name="hostname" value="moo.sindome.org" /><br>
+        <input id="moo-hostname" type="text" name="hostname" value="<%= mooHostname %>" /><br>
         <label for="moo-port">PORT</label>
-        <input id="moo-port" type="number" name="port" value="5555" min="23" max="65535" step="1"/>
+        <input id="moo-port" type="number" name="port" value="<%= mooPort %>" min="23" max="65535" step="1"/>
       </div>
       <div class="relative-group">
         <a href="/client-options/" class="btn">Options</a>
@@ -16,7 +17,12 @@
         <input class="btn btn-success pull-right" id="connect_now" type="submit" name="connect_now" value="Connect Now">
       </div>
     </div>
-    <div id="contact_panel" class="tab-panel hidden-panel">
+    <% } %>
+    <% if (!connectAnywhere) { %>
+        <input id="moo-hostname" type="hidden" name="hostname" value="<%= mooHostname %>" />
+        <input id="moo-port" type="hidden" name="port" value="<%= mooPort %>" />
+    <% } %>
+    <div id="contact_panel" class="tab-panel <% if (connectAnywhere) { %>hidden-panel <% } %>">
       <h2 style="color: #eeeeee">Connect As ...</h2>
       <div class="moo-login-box">
         <label for="moo-username">CHARACTER NAME</label>
@@ -36,7 +42,7 @@
         <input id="moo-password" type="password" name="password"><br>
         <div class="relative-group">
           <a href="/client-options/" class="btn">Options</a>
-          <input class="btn btn-primary" id="back_btn" type="submit" name="back_panel" value="Back">
+          <% if (connectAnywhere) { %><input class="btn btn-primary" id="back_btn" type="submit" name="back_panel" value="Back"> <% } %>
           <input class="btn btn-large btn-primary pull-right" id="connect_as" type="submit" name="connect" value="Connect">
           <i id="secure-toggle" class="glyph-network"></i>
         </div>
