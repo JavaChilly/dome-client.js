@@ -142,7 +142,7 @@ exports.connection = function ( socket ) {
             socket.emit( 'disconnect' );
           }
         });
-        inputCallback( { 'status' : 'command sent from ' + config.node.poweredBy + ' to moo at ' + (new Date()).toString() } );
+        if (inputCallback) inputCallback( { 'status' : 'command sent from ' + config.node.poweredBy + ' to moo at ' + (new Date()).toString() } );
       } catch ( exception ) {
         logger.error( 'exception while writing to moo' );
         logger.error( exception );
