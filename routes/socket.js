@@ -51,6 +51,10 @@ exports.connection = function ( socket ) {
       logger.error( err );
       socket.set( 'is-active', false );
     } else {
+
+      logger.info('connected-handshake', socket.handshake );
+      logger.info('connected-socket', socket );
+
       socket.get( 'game-address', function( err, address ) {
         whenConnected(address);
         socket.set( 'is-active', true );
@@ -74,6 +78,8 @@ exports.connection = function ( socket ) {
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
         // server wants to know the current remote address
+        logger.info('dcu-address', socket.handshake.address );
+        
         moo.write( "@dome-client-user " + socket.handshake.address.address + "\r\n", "utf8" );
       } else {
         socket.get( 'is-active', function( err, active ) {
