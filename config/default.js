@@ -12,12 +12,17 @@ module.exports = {
 //    'ip'           : '208.52.189.89',
 
     'socketUrl'    : 'http://localhost:5555',
+
+// if you have ssl, add the correct socket url for that here
     'socketUrlSSL' : '',
     'poweredBy'    : 'dome-client.js',
     'session'      : {
+// specify your own secret value here, don't use 'secret'
         'secret' : 'secret',
         'key'    : 'express.sid'
-    }
+    },
+// setting this to true will trust header x-forwarded-for is specifying the correct ip of the user
+    'socketProxied' : false
   },
   
 // ssl is optional

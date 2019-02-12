@@ -27,6 +27,8 @@ exports.connected = function() {
   };
 };
 
+var SOCKET_PROXIED = _.has( config.node , 'socketProxied' ) ? config.node.socketProxied : false;
+
 // browser connecting via websocket
 exports.connection = function ( socket ) {
 
@@ -52,9 +54,6 @@ exports.connection = function ( socket ) {
       socket.set( 'is-active', false );
     } else {
 
-      logger.info('connected-handshake', socket.handshake );
-      logger.info('connected-socket', socket );
-
       socket.get( 'game-address', function( err, address ) {
         whenConnected(address);
         socket.set( 'is-active', true );
@@ -78,13 +77,11 @@ exports.connection = function ( socket ) {
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
         // server wants to know the current remote address
-        logger.info( 'dcu-connected', socket.manager.connected );
-        logger.info( 'dcu-open', socket.manager.open );
-        logger.info( 'dcu-sockets', socket.manager.sockets.sockets );
-        logger.info('dcu-address', socket.handshake.address );
-        logger.info( 'dcu-headers', socket.handshake.headers );
+        logger.info('dcu-address', socket.handshake.address.address );
+        logger.info( 'dcu-x-forwarded-for', socket.handshake.headers[ 'x-forwarded-for' ] );
+        var ip = SOCKET_PROXIED ? ( socket.handshake.headers[ 'x-forwarded-for' ] || socket.handshake.address.address ) : socket.handshake.address.address;
         
-        moo.write( "@dome-client-user " + socket.handshake.address.address + "\r\n", "utf8" );
+        moo.write( "@dome-client-user " + ip  + "\r\n", "utf8" );
       } else {
         socket.get( 'is-active', function( err, active ) {
             if ( active ) {
