@@ -40,7 +40,7 @@ var logUser = function( socket, label ) {
 
   var msg = [
     ( isError ? 'ERR' : (label || '') ),
-    ( new Date() ).toLocaleDateString(),
+    ( new Date() ).toISOString(),
     userIp( socket ),
     socket.handshake.headers.referer,
     socket.handshake.headers[ 'user-agent' ] || 'no user agent'
