@@ -1,5 +1,6 @@
 var net  = require( 'net' ),
       _  = require( 'underscore' ),
+    ua   = require( 'useragent' ),
  config  = require( '../lib/config' ),
  logger  = require( '../lib/logger' );
 
@@ -33,18 +34,15 @@ var userIp = function( socket ) {
   return SOCKET_PROXIED ? ( socket.handshake.headers[ 'x-forwarded-for' ] || socket.handshake.address.address ) : socket.handshake.address.address;
 };
 
-var logUser = function( socket, label ) {
-
-
+var logUser = function( socket, label, moreFields ) {
   var isError = ( typeof( label ) === 'object' && _.has( label, 'message' ) );
-
-  var msg = [
+  var fieldset = [
     ( isError ? 'ERR' : (label || '') ),
     ( new Date() ).toISOString(),
-    userIp( socket ),
-    socket.handshake.headers.referer,
-    socket.handshake.headers[ 'user-agent' ] || 'no user agent'
-  ].join( ' ' );
+    userIp( socket )
+  ];
+  if ( moreFields && moreFields.length ) fieldset = fieldset.concat( moreFields );
+  var msg = fieldset.join( ' ' );
   isError ? logger.error( msg, label ) : logger.info( msg );
 };
 
@@ -95,8 +93,14 @@ exports.connection = function ( socket ) {
       data = data.toString();
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
+        var userAgent = ua.parse( socket.handshake.headers[ 'user-agent' ] );
         // server wants to know the current remote address
-        logUser( socket, 'WHO' );
+        logUser( socket, 'WHO', [
+          socket.handshake.headers.referer,
+          userAgent.toAgent(),
+          userAgent.os.toString(),
+          ( userAgent.device && userAgent.device != 'Other' ? userAgent.device.toString() : '' )
+        ] );
         var ip = userIp( socket );
 
         moo.write( "@dome-client-user " + ip  + "\r\n", "utf8" );

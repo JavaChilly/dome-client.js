@@ -15,6 +15,7 @@
     "ejs-locals": "~0.2.5",
     "socket.io": "~0.9.11",
     "version-git": "0.0.2",
-    "express-responsive": "~0.1.0"
+    "express-responsive": "~0.1.0",
+    "useragent": "~2.3.0"
   }
 }
