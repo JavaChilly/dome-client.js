@@ -53,7 +53,7 @@ exports.connection = function ( socket ) {
       logger.error( err );
       socket.set( 'is-active', false );
     } else {
-
+      logger.info( 'connected-headers', socket.handshake.headers );
       socket.get( 'game-address', function( err, address ) {
         whenConnected(address);
         socket.set( 'is-active', true );
@@ -77,8 +77,7 @@ exports.connection = function ( socket ) {
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
         // server wants to know the current remote address
-        logger.info('dcu-address', socket.handshake.address.address );
-        logger.info( 'dcu-x-forwarded-for', socket.handshake.headers[ 'x-forwarded-for' ] );
+        logger.info( 'dcu-headers', socket.handshake.headers );
         var ip = SOCKET_PROXIED ? ( socket.handshake.headers[ 'x-forwarded-for' ] || socket.handshake.address.address ) : socket.handshake.address.address;
         
         moo.write( "@dome-client-user " + ip  + "\r\n", "utf8" );
