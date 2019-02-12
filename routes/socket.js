@@ -78,7 +78,11 @@ exports.connection = function ( socket ) {
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
         // server wants to know the current remote address
+        logger.info( 'dcu-connected', socket.manager.connected );
+        logger.info( 'dcu-open', socket.manager.open );
+        logger.info( 'dcu-sockets', socket.manager.sockets.sockets );
         logger.info('dcu-address', socket.handshake.address );
+        logger.info( 'dcu-headers', socket.handshake.headers );
         
         moo.write( "@dome-client-user " + socket.handshake.address.address + "\r\n", "utf8" );
       } else {
