@@ -29,6 +29,25 @@ exports.connected = function() {
 
 var SOCKET_PROXIED = _.has( config.node , 'socketProxied' ) ? config.node.socketProxied : false;
 
+var userIp = function( socket ) {
+  return SOCKET_PROXIED ? ( socket.handshake.headers[ 'x-forwarded-for' ] || socket.handshake.address.address ) : socket.handshake.address.address;
+};
+
+var logUser = function( socket, label ) {
+
+
+  var isError = ( typeof( label ) === 'object' && _.has( label, 'message' ) );
+
+  var msg = [
+    ( isError ? 'ERR' : (label || '') ),
+    ( new Date() ).toLocaleDateString(),
+    userIp( socket ),
+    socket.handshake.headers.referer,
+    socket.handshake.headers[ 'user-agent' ] || 'no user agent'
+  ].join( ' ' );
+  isError ? logger.error( msg, label ) : logger.info( msg );
+};
+
 // browser connecting via websocket
 exports.connection = function ( socket ) {
 
@@ -50,10 +69,10 @@ exports.connection = function ( socket ) {
   var moo = net.connect( { 'port' : gamePort, 'host' : gameHost }, function(err) {
     // tell the other end of the connection that it connected successfully
     if (err) {
-      logger.error( err );
+      logUser( socket, err );
       socket.set( 'is-active', false );
     } else {
-      logger.info( 'connected-headers', socket.handshake.headers );
+      logUser( socket, 'HI ' );
       socket.get( 'game-address', function( err, address ) {
         whenConnected(address);
         socket.set( 'is-active', true );
@@ -77,9 +96,9 @@ exports.connection = function ( socket ) {
       if ( ( marker = data.indexOf( '#$# dome-client-user' ) ) != -1 ) {
         var end = data.indexOf( "\r\n", marker );
         // server wants to know the current remote address
-        logger.info( 'dcu-headers', socket.handshake.headers );
-        var ip = SOCKET_PROXIED ? ( socket.handshake.headers[ 'x-forwarded-for' ] || socket.handshake.address.address ) : socket.handshake.address.address;
-        
+        logUser( socket, 'WHO' );
+        var ip = userIp( socket );
+
         moo.write( "@dome-client-user " + ip  + "\r\n", "utf8" );
       } else {
         socket.get( 'is-active', function( err, active ) {
@@ -108,8 +127,9 @@ exports.connection = function ( socket ) {
   
   moo.on( 'error', function(e) {
     logger.error( 'moo error event occurred' );
-    logger.error( e );
-      socket.get( 'is-active', function( err, active ) {
+    logUser( socket, e );
+
+    socket.get( 'is-active', function( err, active ) {
         if ( active ) {
           socket.emit( 'error', e );
         }
@@ -118,14 +138,13 @@ exports.connection = function ( socket ) {
   
   socket.on( 'error', function(e) {
     logger.error( 'socket error event occurred' );
-    logger.error( e );
+    logUser( socket, e );
     // can't send this to the user 
   });
   
   socket.on( 'disconnect', function( data ) {
     socket.set( 'is-active', false );
-    logger.debug( 'disconnected from client with data:' );
-    logger.debug( data );
+    logUser( socket, 'BYE' );
     moo.write( '@quit' + "\r\n", "utf8", function() {
       moo.end();
     });
@@ -151,7 +170,7 @@ exports.connection = function ( socket ) {
         if (inputCallback) inputCallback( { 'status' : 'command sent from ' + config.node.poweredBy + ' to moo at ' + (new Date()).toString() } );
       } catch ( exception ) {
         logger.error( 'exception while writing to moo' );
-        logger.error( exception );
+        logUser( socket, 'ERR' );
         socket.get( 'is-active', function( err, active ) {
           if ( active ) {
             socket.emit( 'error', exception ); 
