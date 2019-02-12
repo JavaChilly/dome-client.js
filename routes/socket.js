@@ -96,10 +96,10 @@ exports.connection = function ( socket ) {
         var userAgent = ua.parse( socket.handshake.headers[ 'user-agent' ] );
         // server wants to know the current remote address
         logUser( socket, 'WHO', [
-          socket.handshake.headers.referer,
           userAgent.toAgent(),
           userAgent.os.toString(),
-          ( userAgent.device && userAgent.device != 'Other' ? userAgent.device.toString() : '' )
+          socket.handshake.headers.referer,
+          ( userAgent.device && userAgent.device.toString() !== 'Other 0.0.0' ? userAgent.device.toString() : '' )
         ] );
         var ip = userIp( socket );
 
