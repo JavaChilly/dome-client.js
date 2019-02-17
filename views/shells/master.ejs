@@ -41,7 +41,7 @@
       heap.load("307390813");
     </script>
   </head>
-  <body>
+  <body <%-((req.bodyClass == null) ? '' : ('class="' + req.bodyClass + '"'))%>>
     <%-body -%>
   </body>
 </html>

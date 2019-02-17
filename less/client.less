@@ -10,7 +10,7 @@
 }
 
 .ansi-bgblue {
-  background-color: #009;
+  background-color: #00C;
 }
 
 .ansi-bggreen {
@@ -37,8 +37,29 @@
   text-decoration: underline;
 }
 
+.ansi-bold {
+  font-weight: bold;
+  filter: brightness(175%);
+}
+
+.ansi-faint {
+  filter: brightness(50%);
+}
+
 .ansi-bggreen {
   background-color: #090;
+}
+
+@-webkit-keyframes blinker {
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+
+.ansi-slow-blink {
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-duration: 1400ms;
 }
 
 BODY {
@@ -47,6 +68,11 @@ BODY {
   background-color: #111;
   background: url('/img/fuller_street1_sq.jpg');
   .background-size(100% 300%);
+}
+&.client {
+  border-bottom: 2px solid #EEE;
+  background: none;
+  background-color: #222;
 }
 
 INPUT.ui-autocomplete-input {
@@ -156,11 +182,11 @@ BODY.ide-window {
 #browser-client {
   position: relative;
   height: 100%;
-  
+
   #lineBuffer, #channel {
     /* width: 100%; */
-    padding: 10px 10px 3px;
-    border: 0;
+    padding: 10px 10px 5px;
+    border: 2px solid black;
     background-color: black;
     color: #AAA;
     height: 100%;
@@ -218,6 +244,8 @@ BODY.ide-window {
     bottom: 2px;
     margin-bottom: 0;
     padding-left: 5px;
+    border: 0;
+    border: 2px solid #EEE;
     &:focus {
       box-shadow: none;
     }

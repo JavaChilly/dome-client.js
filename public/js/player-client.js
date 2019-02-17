@@ -198,7 +198,7 @@ $(document).ready(function(){
   
   var onResizeHandler = function() {
     dome.client.css('height', '' + (window.innerHeight) + 'px');
-    dome.buffer.css('height', '' + (window.innerHeight - 75) + 'px');
+    dome.buffer.css('height', '' + (window.innerHeight - 83) + 'px');
   };
   var onDisconnectedHandler = function() {
     currentState = STATE_ENUM.DISCONNECTED;
