@@ -29,6 +29,7 @@ var subs = [
   { 'type' : 'ansi', 'pattern' : /\u001b\[1m/g,  'replacement' : '<span class="ansi-bold">' },
   { 'type' : 'ansi', 'pattern' : /\u001b\[2m/g,  'replacement' : '<span class="ansi-faint">' },
   { 'type' : 'ansi', 'pattern' : /\u001b\[0m/g,  'replacement' : '</span>' },
+  { 'type' : 'ansi', 'pattern' : /\u001b\[22m/g,  'replacement' : '</span>' },
   { 'type' : 'ansi', 'pattern' : /\u001b\[40m/g, 'replacement' : '</span>' },
   { 'type' : 'ansi', 'pattern' : /\u001b\[41m/g, 'replacement' : '<span class="ansi-bgred">' },
   { 'type' : 'ansi', 'pattern' : /\u001b\[42m/g, 'replacement' : '<span class="ansi-bggreen">' },
